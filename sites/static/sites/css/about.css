@@ -1,0 +1,16 @@
+body{
+  /* height: 100vh; */
+  width: 100vw;
+  /*background-image: url('/image/back_hand.jpg');*/
+  background-repeat : repeat-y;
+  background-size : cover;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+
+
+
+

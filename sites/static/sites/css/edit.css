@@ -1,0 +1,71 @@
+
+body {
+    /* height: 100vh; */
+    width: 100vw;
+    /*background-image: url('../image/back_hand.jpg');*/
+    background-repeat : repeat-y;
+    background-size : cover;
+    }
+
+
+    .form-box {
+    max-width: 500px;
+    margin: auto;
+    padding: 50px;
+    background-color:rgba(255, 255, 255, 0.3); border-style: none;
+    display: block;
+
+    align-content: center;
+    }
+
+    h1, p {
+    text-align: center;
+    }
+
+    input, textarea {
+    width: 100%;
+    }
+
+    input::placeholder {
+    font-size: 0.8em;
+    }
+
+    .btn-primary{
+      border-color: #ced4da;
+
+    }
+
+    .toggle-on{ font-size: smaller;
+    line-height:center;
+    background-color:rgb(131, 170, 255); }
+
+    .toggle-off{ font-size: smaller;
+    line-height:center; background-color: #ff8282; }
+
+    .btn-light:hover {background-color: rgb(255, 167, 167);}
+    .toggle.ios {  border-radius: 5px;}
+    .toggle-handle { border-radius: 5px;}
+
+
+    label {
+        font-size: 1.1em;
+    }
+
+
+
+section{
+padding: 30px;
+}
+
+
+
+
+container{
+  width: 20em;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+.navbar {
+  margin-bottom: 0px;
+}

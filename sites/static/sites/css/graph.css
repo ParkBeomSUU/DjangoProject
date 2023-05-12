@@ -1,0 +1,52 @@
+.box{
+    position: relative;
+    padding:7%;
+}
+
+.container{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.chart{
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    transition: 0.3s;
+    margin:25px;
+}
+
+
+.battery{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 160px;
+    font-size: 40px;
+    transform: translate(-50%,-50%);   
+    background-color: whitesmoke;
+}
+
+.inside{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 160px;
+    font-size: 40px;
+    transform: translate(-50%,-50%);   
+    background-color: whitesmoke;
+}

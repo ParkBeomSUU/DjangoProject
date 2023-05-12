@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+
+    <link rel="stylesheet" href="{% static 'sites/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.min.css' %}" media="screen">
+
+
+
+</head>
+
+<body>
+<!-- 헤더 들어갈 자리 -->
+{% include 'sites/header.html' %}
+
+<!-- 로그인 창 -->
+<!--로그인에 성공했을 경우-->
+<div>
+{% if user.is_authenticated %}
+    <div style="height: auto; width: 50%; margin-top: 100px; float: right; position: relative;">
+        <div style="position: absolute; top: 20%; font-size: 40px; color: gray; text-align:center;">
+            Welcome <br> Hope you have good </p><span><h1 class="text"></h1></span>
+        </div>
+
+        <form>
+            <div class="col-7 mx-auto" style="left: -25%; right: 20%; float: right; margin: 300px 300px 200px 200px;">
+                <input class="btn btn-outline-secondary btn-lg" id="submitbtn"
+                       style="position:absolute; top:60px; color: white; border-color: white; border-width: 1.5px; border-style:solid; border-radius:0px;"
+                       type="button" value="Logout" onclick=location.href="{% url 'sites:logout' %}">
+            </div>
+        </form>
+    </div>
+
+    {% else %}
+
+
+    <div style="height: auto; width: 50%; margin-top: 80px; float: right; position: relative;">
+        <div class="getready" style="position: absolute; top: 20%; left:12%; font-size: 40px; color: gray; text-align:center;">
+            Get ready <br> to </p><span><h1 class="text"></h1></span>
+        </div>
+    <!--로그인 하지 않았을 경우 로그인 창 활성화     -->
+     {% if user.is_anonymous %}
+        <form>
+            <div class="col-7 mx-auto" style="left: -25%; right: 20%; float: right; margin: 400px 300px 200px 200px;">
+                <input class="btn btn-outline-secondary btn-lg" id="submitbtn"
+                       style="color: white; border-color: white; border-width: 1.5px; border-style:solid; border-radius:0px;"
+                       type="button" value="Login" onclick=location.href="{% url 'sites:login' %}">
+            </div>
+        </form>
+    </div>
+    {% endif%}
+  {% endif%}
+
+
+</div>
+
+
+
+
+
+<!--푸터 들어갈 자리-->
+{% include 'sites/footer.html' %}
+<script src="{% static 'sites/js/home.js'%}"></script>
+
+</body>
+
+</html>

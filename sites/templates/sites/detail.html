@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+
+
+
+</head>
+<body>
+
+    <table
+            border="1"
+            width="50%"
+            height="200"
+            cellspacing="5">
+            <caption><h3>Omo robot Info</h3></caption>
+            <thead>
+                <tr align="center" bgcolor="white">
+                    <th>번호</th>
+                    <th>작성자</th>
+                    <th>배터리 잔량</th>
+                    <th>부저</th>
+                    <th colspan="3">LED 정보</th>
+                    <th>만든일자</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+
+                <tr align="center" bgcolor="white">
+                    <td>{{detail.pk}}</td>
+                    <td>{{detail.author}}님</td>
+                    <td>{{detail.battery}}% </td>
+                    <td>{{detail.buzzer}} </td>
+                    <td>R: {{ detail.r_led }}</td>
+                    <td>G: {{ detail.g_led }}</td>
+                    <td>B: {{ detail.b_led }}</td>
+                    <td>{{detail.created_at}}</td>
+                </tr>
+
+                    <button type="button"><a href="{% url 'update' update.pk %}">update 하기</a></button>
+                    <button type="button"><a href="{% url 'graph' graph.pk %}">graph 하기</a></button>
+
+               <!-- <a href="{% url 'detail' detail.pk %}">update 하기</a> -->
+
+               <button><a href="{% url 'result'%}">상세 목록</a></button>
+
+
+            </tbody>
+        </table>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+
+<!--static css 코드 -->
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/result.css' %}">
+
+
+<!--  부트스트랩 CSS 코드 -->
+    <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+
+.progress {
+	width: 100%;
+	display: inline-block;
+	overflow: hidden;
+	height: 28px;
+	background-color: #ddd;
+	border-radius: 4px;
+	position: relative;
+
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.progress-bar-text {
+	 position: absolute;
+	 left: 50%;
+	 font-style: italic;
+	 font-size: 1em;
+	 transform:translateX(-50%);
+}
+
+.progress-bar {
+	width: 0;
+	border-radius: 4px;
+	height: 100%;
+	font-size: 14px;
+	line-height: 22px;
+	color: #464e5b;
+	text-align: center;
+	background-color: rgb(147, 218, 147);
+}
+
+.inline {
+	display:inline-block;
+}
+
+.main {
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+</style>
+</head>
+
+<body style="background-color:#d9d7d8;">
+<!-- 헤더 들어갈 자리 -->
+{% include 'sites/header.html' %}
+
+
+<!--기록 창 시작 -->
+<section class="py-5"  >
+    <div class="container px-4 px-lg-5 mt-5" style="margin-bottom: 120px;">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+            <div class="col mb-5 add-card" style="cursor:pointer;"
+                 data-bs-toggle="modal" data-bs-target="#addRecord">
+                <div class="card h-100"style="display: flex; justify-content: center; align-items: center;
+                background-color:rgba(255, 255, 255, 0.3); border-style: none; width: 300px;">
+                    <i class="fa-solid fa-plus fa-5x" style="color: gray;"></i>
+                    <i class="fa-solid fa-plus fa-6x"style="color: gray;"></i>
+                </div>
+            </div>
+
+<!--            포스팅 리스트 본문 -->
+            {% for p in values %}
+
+            <div class="col mb-5">
+                <div class="card h-100" style="background-color:rgba(255, 255, 255, 0.3); border-style: none;">
+                  <div class="card-body px-4 pt-4 pb-0">
+                        <div class="text-center" style="width:300px; padding-right: 1rem;">
+                          <br>
+                          <div align="left" id="pk" class="input-group">{{ p.pk }}번째 동력 제어 실험</div><br>
+                          <div align="left" id="author" class="input-group">{{p.writer}}님</div><br>
+                          <div align="right" id="datetime" class="input-group">{{ p.created_at }}</div><br>
+                          <div align="left" id="memo" class="input-group" style="overflow:auto; width:270px; height:60px; " >참고 사항 : {{ p.content }}</div>
+                          <br><br>
+                        </div>
+                  </div><br><br>
+
+                                <!-- Button trigger modal -->
+                          <div class="button_right" style="float:right; padding-right:1.5rem;">
+                            <button type="button" style="float:right" class="btn btn-outline-secondary"
+                                    data-bs-toggle="modal" data-bs-target="#modal{{p.pk}}" >
+                              자세히 보기
+                            </button>
+                          </div>
+                          <br>
+                </div>
+            </div>
+            <!-- 기록 Modal -->
+            <div class="modal fade" id="modal{{p.pk}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true" style="position: fixed; top: 50%; left: 50%;
+              transform: translate(-50%, -50%);">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="staticBackdropLabel">자세히 보기</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                      style="background-color:transparent; border:none;">
+                    </button>
+                  </div>
+
+                  <!--       자세히보기 모달 본문 -->
+                  <div class="modal-body">
+                    <!--          LED 표시 -->
+                    <p align="left" style="font-weight: bold;" >LED
+                    <div class="input-group">
+                      <span class="input-group-text" style="width:38px; background-color:rgb({{ p.r_led }},{{ p.g_led }},{{ p.b_led }})"> </span>
+                      <div id="r_led" class="form-control"> R&nbsp;&nbsp; {{ p.r_led }} </div>
+                      <div id="g_led" class="form-control"> G&nbsp;&nbsp; {{ p.g_led }} </div>
+                      <div id="b_led" class="form-control"> B&nbsp;&nbsp; {{ p.b_led }} </div>
+                    </div>
+                    </p>
+                    <br>
+
+                    <!--          RPM 표시 -->
+                    <p align="left" style="font-weight: bold">RPM
+                    <div class="input-group">
+                      <span class="input-group-text"> L </span>
+                      <div id="l_rpm" class="form-control">{{ p.l_rpm }}</div>
+                      <span class="input-group-text"> R </span>
+                      <div id="r_rpm" class="form-control">{{ p.r_rpm }}</div>
+                    </div>
+                    </p>
+                    <br>
+
+                 <p align="left" style="font-weight: bold">Battery
+
+                      {% if p.bat_status == 'on' %}
+                           <div class="main">
+                                <div class="progress" id="batter_on" style="position: relative;">
+                                    <div class="progress-bar-text" style="position: absolute; left: 50%;">{{ p.battery }}%</div>
+                                    <div class="progress-bar bat" role="progressbar" aria-label="Example with label"
+                                         aria-valuenow="{{p.battery}}" aria-valuemin="0"
+                                         aria-valuemax="100" style="width: 0%; font-size: 1em;">
+                                    </div>
+                                </div>
+                             </div>
+                      {% else %}
+                      <div id="battery_off" class="form-control" style="color:gray;">표시 안함</div>
+                      {% endif %}
+                    </p>
+                    <br>
+
+
+                    <!--          부저 표시 -->
+                    <p align="left" style="font-weight: bold">Buzzer
+                    <div class="input-group">
+                      {% if p.buzzer == 'on' %}
+                      <div id="buzzer_on" class="form-control" style="text-align: center; background-color:rgb(147, 218, 147);">ON
+                      </div>
+                      {% else %}
+                      <div id="buzzer_off" class="form-control" style="text-align: center; background-color: #ff8282;">OFF</div>
+                      {% endif %}
+                    </div>
+                    </p>
+                    <br>
+
+
+                    <!--          헤드라이트 표시 -->
+                    <p align="left" style="font-weight: bold">Headlight
+                    <div class="input-group">
+                      {% if p.headlight == 'on' %}
+                      <div id="headlight_on" class="form-control" style="text-align: center; background-color:rgb(147, 218, 147);">
+                        ON</div>
+                      {% else %}
+                      <div id="headlight_off" class="form-control" style="text-align: center; background-color: #ff8282;">OFF</div>
+                      {% endif %}
+                    </div>
+                    </p>
+                  </div>
+
+
+                  <!--        모달 푸터 -->
+                  <div class="modal-footer">
+                    {% if user.is_authenticated and user == p.writer %}
+                       <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                      <a href="{% url 'sites:update' p.pk %}">업데이트</a> </button>
+
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                      <a href="{% url 'sites:delete' p.pk %}">삭제</a> </button>
+                    {%endif%}
+
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">닫기 </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- + 아이콘 모달폼 입력창 -->
+{%if user.is_authenticated %}
+<div class="modal fade" id="addRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="addRecordLabel">추가</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:transparent; border:none;">
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- 폼 입력시작 -->
+        <form method="post">
+          {% csrf_token %}
+
+            <!-- led 색상 표시  -->
+          <p style="font-weight: bold;text-align:center; background-color:rgb() ">LED</p>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Red" aria-label="ledColor"
+                       aria-describedby="r_led" name="r_led" required>
+                <input type="text" class="form-control" placeholder="Green" aria-label="ledColor"
+                       aria-describedby="g_led" name="g_led" required>
+                <input type="text" class="form-control" placeholder="Blue" aria-label="ledColor"
+                       aria-describedby="b_led" name="b_led" required>
+            </div>
+          <br>
+
+
+            <!-- 바퀴 rpm 표시 -->
+            <p style="font-weight: bold">RPM</p>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Left" aria-label="ledColor"
+                       aria-describedby="l_rpm" name="l_rpm" required>
+                <input type="text" class="form-control" placeholder="Right" aria-label="ledColor"
+                       aria-describedby="r_rpm" name="r_rpm" required>
+            </div><br>
+
+
+            <!-- 배터리 표시-->
+
+
+            <p style="font-weight: bold">battery(%)</p>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="battery" aria-label="ledColor"
+                       aria-describedby="battery" name="battery"  required>
+            </div><br><br>
+
+               <p style="font-weight: bold">배터리 잔량 표시</p>
+            <br>
+            <div class="container-toggle">
+              <div class="toggle-switch">
+                <input role="switch" name="bat_status" type="checkbox" id="battery" >
+                <label for="battery">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+            </div><br><br>
+
+
+
+
+            <!-- 버저 on/off -->
+            <p style="font-weight: bold; align-items: center;">버저</p>
+            <br>
+            <div class="container-toggle">
+              <div class="toggle-switch">
+                <input role="switch" name="buzzer" type="checkbox" id="buzzer" >
+                <label for="buzzer">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+            </div><br><br>
+
+
+             <!-- 헤드라이트 on/off -->
+            <p style="font-weight: bold">헤드라이트</p>
+          <br>
+            <div class="container-toggle">
+              <div class="toggle-switch">
+                <input role="switch" name="headlight" type="checkbox" id="headlight">
+                <label for="headlight">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+            </div><br><br>
+
+
+
+            <!-- 동력 제어 참고사항 기재 -->
+            <div class="modal-form-group" >
+              <p style="text-align: center;"> MEMO </p>
+                <textarea style="padding-left:5;padding-right:50;padding-bottom:50;
+                padding-top:50;word-break:break-all;width:100%; border-color: black;"
+                class="form-control" id="content" name="content"></textarea>
+            </div><br><br>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-light" data-bs-dismiss="modal" value="ADD">추가</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    {%endif%}
+<!--푸터-->
+{% include 'sites/footer.html' %}
+
+
+<!-- JS 스크립트 코드-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+<script src="{% static 'sites/js/result.js' %}"> </script>
+
+<!--  부트스트랩 cdn 파일 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<!--아이콘 폰트어썸 -->
+<script src="https://kit.fontawesome.com/dc96642a54.js" crossorigin="anonymous"></script>
+
+
+
+
+
+</body>
+</html>

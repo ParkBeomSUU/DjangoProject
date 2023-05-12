@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About</title>
+
+    <!--    스타일 시트 링크 -->
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/product.css' %}">
+
+
+    <!--    부트스트랩 코드 -->
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.min.css' %}" media="screen">
+
+</head>
+
+<body style="margin-bottom: 120px;">
+<!--헤더-->
+{% include 'sites/header.html' %}
+
+
+<!--콘테이너 영역-->
+	<div id="container">
+
+<!--		휴모로봇 슬라이더 섹션 -->
+		<section id="main-visual" class="rounded">
+			<h3 class="blind" style="margin-top:15px; margin"></h3>
+			<br>
+			<ul class="main-visual-slide">
+				<li>
+					<div class="visual-item-wrap item1">
+					<h4 class="visual-title">R1v2</h4>
+					<p>
+						<span> 주행용 오픈 모바일 플랫폼
+
+                            <br>
+                            ROS를 지원하는 모바일 로봇<br>
+							R1 v2는 ROS(Robot Operating System)를 지원합니다.
+                        </p>
+					<p class="detail-view"><a href="#">자세히 보기</a></p>
+					</div>
+					<div style="margin:20px;"></div>
+					<br>
+					<br>
+				</li>
+				<li>
+					<div class="visual-item-wrap item2">
+					<h4 class="visual-title">R1mini</h4>
+					<p>
+						<span> 자율주행 교육/개발용 소형 모바일플랫폼
+                            <br>
+                            초급자부터 전문가까지 한 대의 로봇으로 지속하는 자율주행 연구
+							R1v2의 보급형 보전으로 누구나 쉽게 사용할수 있는 로봇 입니다.
+
+						</span>
+					</p>
+					<p class="detail-view"><a href="#">자세히 보기</a></p>
+					</div>
+				</li>
+				<li>
+					<div class="visual-item-wrap item3">
+					<h4 class="visual-title">humanRo</h4>
+					<p>
+						<span> 인간형 로봇의 결정체!<br>
+						
+						</span>
+					</p>
+					<p class="detail-view"><a href="#">자세히 보기</a></p>
+					</div>
+				</li>
+			</ul>
+		</section>
+
+<!--		공지사항 섹션 -->
+		<section id="notice-tab-wrap" class="rounded">
+			<h3 class="sec-tit-1" style="text-align:center; padding-bottom:20px;">NOTICE &amp; NEWS</h3>
+
+			<h4 class="tab-btn-1"><a class="on">공지</a></h4>
+				<div class="tab-container-1">
+					<ul style="padding:0px; margin-top:30px;">
+						<li style="padding:0px;"><a href="#" style="color: #0A6ECD">공지사항 관련된 내용입니다.</a><span>2023.01.26</span></li>
+						<li style="padding:0px;"><a href="#" style="color: #0A6ECD">공지사항 관련된 내용입니다.</a><span>2023.01.27</span></li>
+					</ul>
+					<p class="icon-more"><a href="#" style="color: #0A6ECD">more</a></p>
+				</div>
+			<h4 class="tab-btn-2" style="padding-top:20px;"><a>새소식</a></h4>
+			<div class="tab-container-2" style="padding:0px; margin-top:30px;">
+				<p class="no-write" style="padding-left:20px;">등록된 내용이 없습니다.</p>
+			</div>
+		</section><br><br>
+
+<!--		중앙 사진 및 유튜브 영상 섹션 -->
+		<section id="sayang-wrap"><br><br><br>
+			<h3 class="DetailIMG" style="text-align: center;">모델 전반적인 모양</h3><br><br>
+			<div class="sayang grid">
+				<div class="grid-item" style="padding:40px 40px 40px 40px;">
+					<a><img src="../../static/sites/image/robot1.png" style="width: 30rem; height : 25rem"></a>
+					<a><img src="../../static/sites/image/robot2.png" style="width: 30rem; height : 25rem"></a>
+					<a><img src="../../static/sites/image/robot3.png" style="width: 30rem; height : 25rem"></a>
+				</div><br><br><br>
+				<h3 class="sec-tit-2" >R1mini 조립하기</h3>
+				<br>
+				<div class="youtube" >
+					<a><iframe width="1500" height="600" src="https://www.youtube.com/embed/8ghOAEnbsEA" title="YouTube video player"
+								frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+						</iframe></a>
+				</div>
+			</div>
+
+		</section>
+		<br><br><br><br>
+
+<!--		지도 섹션 -->
+	<h3 class="sec-tit-2"> 찾아오시는 길</h3><br><br><br>
+	<div id="map"></div><br><br>
+</div>
+
+
+<!--푸터 들어갈 자리-->
+{% include 'sites/footer.html' %}
+<!-- js 연결 자리-->
+<script src="{% static 'sites/js/main.js'%}"></script>
+<script src="{% static 'sites/js/jquery.js'%}"></script>
+<script src="{% static 'sites/js/bxslider.min.js'%}"></script>
+<script src="{% static 'sites/js/jquery.bxslider.min.js'%}"></script>
+
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vqiqx27mr4"></script>
+	<script>
+	var mapOptions = {
+		center: new naver.maps.LatLng(36.348472,127.382179),
+		zoom: 20
+	};
+	var map = new naver.maps.Map('map', mapOptions);
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict</title>
+
+    <!--css 적용링크 -->
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/predict.css' %}">
+
+<!--    부트스크랩 링크 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.min.css' %}" media="screen">
+
+
+</head>
+<body style="background-color:#d9d7d8;">
+<!-- 헤더 들어갈 자리 -->
+{% include 'sites/header.html' %}
+
+<section>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Led 예측 </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+<!--            예측 결과 모달-->
+            <div class="modal-body">
+                <h5>Led 예측:</h5>
+                <div>battery: <span id="sl"></span></div>
+                <div>rpm: <span id="sw"></span></div>
+                <div>headlight: <span id="pl"></span></div>
+                <div>buzzer: <span id="pw"></span></div>
+                <h5 class="pt-3">Prediction Classification:</h5>
+                <div id ="prediction"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-secondary" href="../predresults" role="button">View DB</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--예측 바디 입력값-->
+<section style="margin-bottom:80px;">
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <h1>Led 예측</h1>
+            <br>
+            <form id="post-form">
+                {% csrf_token %}
+
+<!--                배터리 입력 -->
+                <div class="form-group">
+                    <label for="battery">Battery</label>
+                    <input name="battery" type="number" step="0.1" class="form-control" id="battery" required>
+                </div>
+
+<!--                RGB 입력 -->
+                <div class="form-group">
+                    <label for="rpm">Rpm</label>
+                    <input name="rpm" type="number" step="0.1" class="form-control" id="rpm" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="headlight">Headlight(off=0, on=1)</label>
+                    <input name="headlight" type="number" step="0.1" class="form-control" id="headlight" required>
+                </div>
+                <div class="form-group">
+                    <label for="buzzer">Buzzer(off=0, on=1)</label>
+                    <input name="buzzer" type="number" step="0.1" class="form-control" id="buzzer" placeholder="" required>
+                </div>
+                <br>
+<!--                제출 버튼 -->
+                <div style=" text-align: center;">
+                    <button type="submit" value="Submit" class="btn btn-outline-secondary"
+                        data-toggle="modal" data-target="#exampleModal" style=" display: inline-block;"> 예측 </button>
+                 </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+</section>
+</section>
+
+<script>
+    $(document).on('submit', '#post-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "sites:submit_prediction" %}',
+            data:{
+                battery:$('#battery').val(),
+                rpm:$('#rpm').val(),
+                headlight:$('#headlight').val(),
+                buzzer:$('#buzzer').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success:function(json) {
+                document.forms["post-form"].reset();
+                document.getElementById("prediction").innerHTML = json['result']
+                document.getElementById("sl").innerHTML = json['battery']
+                document.getElementById("sw").innerHTML = json['rpm']
+                document.getElementById("pl").innerHTML = json['headlight']
+                document.getElementById("pw").innerHTML = json['buzzer']
+            },
+            error : function(xhr,errmsg,err) {
+            }
+        });
+    })
+
+
+
+
+</script>
+
+<!--푸터 들어갈 자리-->
+{% include 'sites/footer.html' %}
+
+<!--제이쿼리, ajax 스크립트 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+
+</body>
+</html>

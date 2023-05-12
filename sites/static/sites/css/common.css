@@ -1,0 +1,12 @@
+      .add-card .fa-6x{
+          display: none;
+      }
+      .add-card:hover .fa-5x{
+          display: none;
+      }
+      .add-card:hover .fa-6x{
+          display: initial;
+      }
+
+
+

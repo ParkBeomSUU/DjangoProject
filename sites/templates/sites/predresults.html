@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+
+{% load static  %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+<!--스타일 링크 -->
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/predict.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+
+<!--    부트스트랩 링크 -->
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.min.css' %}" media="screen">
+</head>
+
+
+
+
+<body style="background-color:#d9d7d8;">
+
+<!--헤더 시작-->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/home/"><img src="{%static 'sites/image/ecuzo.png' %}"
+            style="margin-left:30px; margin-right: 50px;"
+            width="70", height="70">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto" >
+<!--                홈-->
+          <li class="nav-item active" >
+            <a class="nav-link" href="/home/" style="padding-top: 20px;
+padding-bottom: 20px;">Home <span class="sr-only">(current)</span></a>
+          </li>
+
+
+<!--                수정페이지-->
+          <li class="nav-item" >
+            {%if user.is_authenticated %}
+            <a class="nav-link " href="/home/edit/" style="padding-top: 20px;
+padding-bottom: 20px;">Edit</a>
+            {%endif%}
+          </li>
+<!--                결과페이지-->
+          <li class="nav-item ">
+            <a class="nav-link " href="/home/result/" style="padding-top: 20px;
+padding-bottom: 20px;">Result</a>
+          </li>
+<!--                입력 예측 페이지-->
+          <li class="nav-item">
+            <a class="nav-link " href="/home/predict/"
+            style="padding-top: 20px;
+padding-bottom: 20px;">Predict</a>
+          </li>
+<!--                그래프 입력 페이지-->
+          <li class="nav-item">
+            <a class="nav-link " href="/home/predresults/"style="padding-top: 20px;
+padding-bottom: 20px;">Predict Result</a>
+          </li>
+
+<!--                상품 및 조원 소개 페이지 -->
+          <li class="nav-item">
+            <a class="nav-link " href="/home/product/"
+            style="padding-top: 20px;
+padding-bottom: 20px;">Product</a>
+          </li>
+        </ul>
+      </div>
+        <hr>
+      </nav>
+<!--헤더 아래 바디 시작 -->
+<div class="container pt-5">
+    <div class="row" style="margin-bottom:100px;">
+        <h1 style="margin-bottom:20px;">Prediction Results</h1>
+
+            <table class="table" style="background-color:rgba(255, 255, 255, 0.2);">
+                <thead>
+                <tr>
+                <th scope="col">no.</th>
+                <th scope="col">Battery</th>
+                <th scope="col">RPM</th>
+                <th scope="col">Headlight(off=0, on=1)</th>
+                <th scope="col">Buzzer(off=0, on=1)</th>
+                <th scope="col">LED</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in dataset %}
+                    <tr>
+                    <th scope="row">{{ data.id }}</th>
+                    <td>{{ data.battery }}</td>
+                    <td>{{ data.rpm }}</td>
+                    <td>{{ data.headlight }}</td>
+                    <td>{{ data.buzzer }}</td>
+                    <td>{{ data.led }}</td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+<!--부트스트랩 코드 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+
+
+<script src="{% static 'sites/js/jquery.js' %}"></script>
+
+<script>
+$(function() {
+  var beforeMenu = null;
+  $(".navbar-nav > li >a").on("mouseover focus", function() {
+    if(beforeMenu) beforeMenu.css({background:"none" });
+    $(this).css({"background-color":"#EEEDED" });
+    beforeMenu = $(this);
+  });
+  $(".navbar-nav").on("mouseleave", function() {
+    if(beforeMenu) beforeMenu.css({background:"none"});
+  });
+});
+</script>
+<!--푸터 자리 -->
+    {% include 'sites/footer.html' %}
+    </body>
+</html>

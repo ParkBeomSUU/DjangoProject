@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+
+<!--    부트 스트랩 cdn -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+<!--    css static 파일 -->
+    <link rel="stylesheet" href="{% static 'sites/css/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+</head>
+
+<body style="background-color:#d9d7d8;">
+<!-- 헤더 -->
+{% include 'sites/header.html' %}
+
+<section style="margin-bottom: 120px;">
+  <div class="form-box">
+      <h1> 동력 제어기 </h1>
+      <p> 제어값을 입력하세요. </p>
+      </br></br>
+
+      <!-- 폼 입력시작 -->
+      <form method="post">
+
+          {% csrf_token %}
+
+          <!-- led 색상 표시  -->
+            <div class="form-group">
+              <label> LED 색상 </label>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" style="font-size: small; background-color: #ff8282;" id="r_led"> R </span>
+                  <input type="text" class="form-control" name="r_led" placeholder="Red"
+                         aria-label="ledColor" aria-describedby="r_led" required>
+                  <span class="input-group-text" style="font-size: small; background-color:rgb(147, 218, 147);" id="g_led"> G </span>
+                  <input type="text" class="form-control" name="g_led" placeholder="Green"
+                         aria-label="ledColor" aria-describedby="g_led" required>
+                  <span class="input-group-text" style="font-size: small; background-color: rgb(131, 170, 255);" id="b_led"> B </span>
+                  <input type="text" class="form-control" name="b_led" placeholder="Blue"
+                         aria-label="ledColor" aria-describedby="b_led" required>
+                </div>
+            </div><br>
+
+            <!-- 바퀴 rpm 표시 -->
+            <div class="form-group">
+              <label for="r_rpm"> 바퀴 RPM </label>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="l_rpm" style="font-size: small;">L</span>
+                  <input type="text" class="form-control" name="l_rpm" placeholder=" "
+                         aria-label="rpmLeft" aria-describedby="l_rpm" required>
+                  <span class="input-group-text" id="r_rpm" style="font-size: small;">R</span>
+                  <input type="text" class="form-control" name="r_rpm"placeholder=" "
+                         aria-label="rpmRight" aria-describedby="r_rpm" required>
+                </div>
+            </div><br>
+
+            <!-- battery-->
+            <div class="form-group">
+              <label for="battery"> 배터리 </label>
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="battery" style="font-size: small;">battery</span>
+                  <input type="text" class="form-control" name="battery" placeholder=""
+                         aria-label="battery" aria-describedby="battery" required>
+                </div>
+            </div><br>
+
+            <!-- 부저 on/off -->
+            <div class="form-group">
+                <label for="buzzer"style="margin-right:133px"> 버저 </label>
+                <input type="checkbox" name="buzzer" id="buzzer" class="edit_onoff"
+                     checked data-toggle="toggle" data-style="ios" data-size="mini">
+            </div>
+
+              <!-- 헤드라이트 on/off -->
+            <div class="form-group">
+                <label for="headlight"style="margin-right:83px"> 헤드라이트 </label>
+              <input type="checkbox" name="headlight" id="headlight"
+                     checked data-toggle="toggle" data-style="ios" data-size="mini" >
+            </div><br>
+
+              <!-- 동력 제어 참고사항 기재 -->
+            <div class="form-group">
+              <label for="content"> 동력 제어 참고사항 </label>
+              <textarea class="form-control" id="content" name="content"></textarea>
+            </div><br>
+            <div>
+        <!-- 입력 제출 버튼 -->
+           <input class="btn btn-outline-secondary"
+                  type="submit" value="입력">
+            </div><br>
+      </form>
+  </div>
+</section>
+
+
+
+<!--푸터 들어갈 자리-->
+{% include 'sites/footer.html' %}
+
+
+<!-- 제이쿼리 스크립트 코드-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+
+</body>
+</html>

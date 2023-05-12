@@ -1,0 +1,136 @@
+.box{
+    position: relative;
+    padding:0;
+
+}
+
+.container{
+    padding :0px;
+    margin: 0px;
+    gap: 15px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.chart{
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    transition: 0.3s;
+    margin:25px;
+}
+
+
+.battery{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 160px;
+    font-size: 40px;
+    transform: translate(-50%,-50%);   
+    background-color: whitesmoke;
+}
+
+.inside{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 160px;
+    font-size: 40px;
+    transform: translate(-50%,-50%);   
+    background-color: whitesmoke;
+}
+
+.circle{
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    border-radius: 50%;
+    border: 2px black solid;
+
+}
+
+/*rgb*/
+
+.contain{
+  display: flex;
+}
+
+/* h1{
+    font-align:center;
+} */
+
+
+#wrapper {
+    margin-bottom: 100px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#wrapper div {
+  width: 100px;
+  height: 100px;
+  align-self: center;
+  transform: rotate(30deg) skew(-15deg, -15deg);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+  transition: 0.6s;
+  position: relative;
+
+}
+
+/* 새롭게 추가된 부분 */
+#wrapper > div > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: skew(0, 0);
+}
+
+
+
+/* 새롭게 추가된 부분 */
+.child2 {
+  opacity: 0.5;
+}
+
+.child3 {
+  opacity: 0.5;
+}
+
+.child4 {
+  opacity: 0.5;
+}
+
+#wrapper > div:hover {
+  transform: rotate(45deg) skew(-15deg, -15deg) translate(-40px, -40px);
+}
+
+/* 새롭게 추가된 부분 */
+#wrapper > div:hover > div.child1 {
+  transform: translate(20px, 20px);
+}
+
+/* 새롭게 추가된 부분 */
+#wrapper > div:hover > div.child2 {
+  transform: translate(60px, 60px);}
+
+#wrapper > div:hover > div.child3 {
+  transform: translate(100px, 100px);}
+
+  #wrapper > div:hover > div.child4 {
+  transform: translate(140px, 140px);}
+
+

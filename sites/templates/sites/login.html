@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!--    부트스트랩 적용 링크 -->
+    <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+
+    <!--css 적용 링크-->
+    <link rel="stylesheet" href="{% static 'sites/css/edit.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+
+
+
+<!--    로그인 창 폰트 -->
+<style>
+    @font-face {
+        font-family: 'ChosunBg';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunBg.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+}
+</style>
+
+</head>
+<body style="background-color:#d9d7d8;">
+<!-- 헤더 들어갈 자리 -->
+{% include 'sites/header.html' %}
+
+    <section>
+        <div class="login-form" style="justify-content: center; align-items: center; margin-top:100px;" >
+            <div class="form-box" >
+
+                <!-- 폼 입력시작 -->
+                <form method="post">
+                    {% csrf_token %}
+
+                <!-- 로그인 폼 -->
+                <!-- 아이디 입력 -->
+                <div class="form-group">
+                    <input class="input-group-text" name="user_id" id="author" type="text"
+                           style="font-family: 'ChosunBg';"
+                    name="admin-name" placeholder="관리자 아이디를 입력하세요">
+                </div>
+
+                <!-- 패스워드 입력 -->
+                <div class="form-group">
+                  <input class="input-group-text" name="user_pw" id="password" type="password"
+                         style="font-family: 'ChosunBg';"
+                  name="admin-name" placeholder="관리자 패스워드를 입력하세요">
+                </div><br>
+
+                <div>
+                  <!-- 입력 제출 버튼 -->
+                  <input class="btn btn-primary" id="submitbtn"
+                         style="background-color:#e9ecef; color: black; border-color: #ced4da;"
+                         type="submit" value="입력" />
+                  </div><br>
+                </form>
+            </div>
+        </div>
+        </section>
+
+<!--푸터 들어갈 자리-->
+
+</body>
+</html>
+

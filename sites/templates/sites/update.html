@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+    <!--    스타일 시트 링크 -->
+    <link rel="stylesheet" href="{% static 'sites/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'sites/css/update.css' %}">
+
+    <!--    부트스트랩 코드 -->
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'sites/bootstrap/bootstrap.css.map' %}" media="screen">
+    <style>
+
+    .r_tire > img {animation: rotate_image calc({{ update.r_rpm }}s * 0.1) linear infinite;transform-origin: 50% 50%;}
+    .l_tire > img {animation: rotate_image calc({{ update.l_rpm }}s * 0.1) linear infinite;transform-origin: 50% 50%;}
+
+
+    @keyframes rotate_image{
+        100% {
+            transform: rotate(360deg);
+        }
+}
+    </style>
+
+</head>
+<body style="background-color:#d9d7d8;">
+    <!-- 헤더 들어갈 자리 -->
+{% include 'sites/header.html' %}
+<div style="display: block; margin-bottom:50px;">
+<span></span>
+
+<div class="box">
+    <div class="my-container" style=" ">
+        <div id="input_box"style="display: flex; justify-content: space-around;">
+           <!--배터리-->
+            <div style="margin-top: 50px; margin-bottom: 80px;">
+            <contain>
+            <div style="margin-bottom:30px">
+                <h2 style="text-align: center;">Battery</h2>
+                <div class="chart doughnut1" style="margin:40px 0px 20px; 0px;">
+                    <span class="inside battery">{{update.battery}}%</span>
+                </div>
+            </div>
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <input id="bat" name="battery" placeholder="Battery" type="text" autocomplete="off"
+                    style="display: block; width :200px; height:39px; background-color: rgb(241,246,247);
+                    border:none; outline:none; border-radius: 5px; text-align: center; margin-left: 60px; margin-right: 10px;" required/>
+
+                    </div>
+                    <button type="button" class="btn btn-outline-success" style="display: block; width: 200px; height: 100%; margin-left:60px; margin-top:10px;" onclick="barchange(1)">Update</button>
+                </form>
+            </contain>
+            </div>
+
+            <!--RGB-->
+
+
+            <div style="margin-top: 50px; margin-bottom: 50px;">
+            <contain>
+                <div>
+                    <h2 style="text-align: center;">RGB</h2>
+                    <div id='wrapper' style="margin-top:5rem; margin-bottom:7rem; width:100%;">
+                        <div class='rgb' style="background-color:transparent; border:none; box-shadow: none;">
+                         <div class='child4'style= "background-color:rgb(0,0,{{ update.b_led }})"></div>
+                         <div class='child3' style= "background-color:rgb(0,{{ update.g_led }},0)"></div>
+                         <div class='child2'style="background-color:rgb({{ update.r_led }},0,0)"></div>
+                         <div class='child1' style="background-color:rgb({{ update.r_led }},{{ update.g_led }},{{ update.b_led }})"></div>
+                        </div>
+                    </div>
+
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                        <input id="r_led" name="r_led" placeholder="R" type="text" autocomplete="off"
+                        style="display: block; width :200px; height:39px; background-color: rgb(241,246,247);
+                        border:none; outline:none; border-radius: 5px; text-align: center; margin-left: 10px; margin-right: 10px;" required/>
+                        <input id="g_led" name="g_led" placeholder="G" type="text" autocomplete="off"
+                        style="display: block; margin-top: 10px; margin-bottom: 10px; width :200px; height:39px; background-color: rgb(241,246,247);
+                        border:none; outline:none; border-radius: 5px; text-align: center; margin-left: 10px; margin-right: 10px;" required/>
+                        <input id="b_led" name="b_led" placeholder="B" type="text" autocomplete="off"
+                        style="display: block; width :200px; height:39px; background-color: rgb(241,246,247);
+                        border:none; outline:none; border-radius: 5px; text-align: center; margin-left: 10px; margin-right: 10px;"required/>
+                        </div>
+
+                        </div>
+                        <button type="button" class="btn btn-outline-success" style="display: block; width: 200px; height: 100%; margin-left:10px; margin-top:10px;  " onclick="barchange(2)">Update</button>
+                    </form>
+                </div>
+            </contain>
+            </div>
+
+
+        <!--Encoder-->
+        <div style="margin-top: 50px; margin-bottom: 50px;">
+        <div>
+            <h2 style="text-align: center; ">Encoder</h2>
+            <div style="display:flex;height: 300px;justify-content: center;display: flex;align-items: center; margin-top:2rem; margin-bottom:3.5rem;">
+                <div class="l_tire" style="margin:30px;"> <img src="/static/sites/image/bike-wheel.png"></div>
+                <div class="r_tire" style="margin:30px"> <img src="/static/sites/image/bike-wheel.png"></div>
+            </div>
+
+
+            <form id="form" onsubmit="return false;">
+                {% csrf_token %}
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top:40px">
+                <div>
+<!--                    왼쪽 바퀴 -->
+                    <input id="l_rpm" name="l_rpm" placeholder="왼쪽 바퀴" type="text" autocomplete="off"
+                style="display: block; margin-top: 10px; margin-bottom: 10px; width :200px; height:39px; background-color: rgb(241,246,247);
+                border:none; outline:none; border-radius: 5px; text-align: center; margin-left: 60px; margin-right: 10px; margin-bottom: 0px;" required/>
+
+<!--                    오른쪽 바퀴 -->
+                <input id="r_rpm" name="r_rpm" placeholder="오른쪽 바퀴" type="text" autocomplete="off"
+                style="display: block; width :200px; height:39px; background-color: rgb(241,246,247);
+                border:none; outline:none; border-radius: 5px; text-align: center; margin-top: 10px; margin-bottom: 10px;margin-left: 60px; margin-right: 10px;" required/>
+
+                </div>
+                </div>
+                <button type="button" class="btn btn-outline-success" style="display: block; width: 200px; height: 100%; margin-left:60px; margin-top:10px;" onclick="barchange(3)">Update</button>
+            </form>
+        </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<footer class="mt-2 py-1 bg-light fixed-bottom" style="flex-grow: 1 !important;">
+            <div class="container" style="margin-top: 0px; margin-bottom: 0px;">
+                <div class="row mb-3">
+                    <div class="col text-center"  >
+                        <p class="mb-3" style="color: rgb(177, 177, 177); margin-top:25px; "> Copyright. Ecuzo  </p>
+                    </div>
+                  </div>
+            </div>
+        </footer>
+
+<!--js-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="{%static 'sites/js/update.js' %}"></script>
+</body>
+</html>
